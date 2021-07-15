@@ -27,6 +27,8 @@ def on_close(ws):
 
 def on_open(ws):
 
+    global total
+
     def send_thread():
         send_info = {"seq": "0_0", "cmd": "ping", "data": {}}
         while True:
@@ -37,7 +39,7 @@ def on_open(ws):
     t = threading.Thread(target=send_thread)
     t.start()
     total += 1
-    print("一共启动连接: ", total)
+    print("一共启动连接: {}", total)
 
 
 def on_start(t):
