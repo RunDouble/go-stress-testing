@@ -94,6 +94,7 @@ func webSocketRequest(chanID uint64, ch chan<- *model.RequestResults, i uint64, 
 		}
 	}
 	requestTime := uint64(helper.DiffNano(startTime))
+	fmt.Println("seq:", requestTime)
 	statistics.RequestTimeList = append(statistics.RequestTimeList, requestTime)
 	requestResults := &model.RequestResults{
 		Time:      requestTime,
