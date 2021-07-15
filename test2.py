@@ -33,7 +33,7 @@ def on_open(ws):
     t.start()
 
 
-def on_start():
+def on_start(t):
     # time.sleep(2)
     websocket.enableTrace(True)
     ws = websocket.WebSocketApp(SERVER_URL,
@@ -49,6 +49,6 @@ if __name__ == "__main__":
     test = list()
     for ir in range(5000):
         test.append(ir)
-    requests = makeRequests(on_start)
+    requests = makeRequests(on_start, test)
     [pool.putRequest(req) for req in requests]
     pool.wait()
