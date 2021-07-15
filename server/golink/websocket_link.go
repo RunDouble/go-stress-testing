@@ -33,7 +33,8 @@ func WebSocket(chanID uint64, ch chan<- *model.RequestResults, totalNumber uint6
 		wg.Done()
 	}()
 	defer func() {
-		_ = ws.Close()
+		fmt.Println("正在关闭 websocket")
+		// _ = ws.Close()
 	}()
 
 	var (

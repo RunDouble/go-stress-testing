@@ -94,10 +94,12 @@ func Dispose(concurrency, totalNumber uint64, request *model.Request) {
 	}
 	// 等待所有的数据都发送完成
 	wg.Wait()
+	fmt.Println("所有数据发送完成")
 	// 延时1毫秒 确保数据都处理完成了
 	time.Sleep(1 * time.Millisecond)
 	close(ch)
 	// 数据全部处理完成了
 	wgReceiving.Wait()
+	fmt.Println("所有数据处理完成")
 	return
 }
