@@ -1,5 +1,6 @@
 import websocket
 import time
+import json
 import threading
 
 from threadpool import ThreadPool, makeRequests
@@ -28,6 +29,7 @@ def on_open(ws):
         while True:
             time.sleep(5)
             ws.send(json.dumps(send_info))
+            print("send msg to server")
 
     t = threading.Thread(target=send_thread)
     t.start()
@@ -45,9 +47,9 @@ def on_start(t):
 
 
 if __name__ == "__main__":
-    pool = ThreadPool(5000)
+    pool = ThreadPool(50000)
     test = list()
-    for ir in range(5000):
+    for ir in range(50000):
         test.append(ir)
     requests = makeRequests(on_start, test)
     [pool.putRequest(req) for req in requests]
