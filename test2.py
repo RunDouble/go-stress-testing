@@ -7,6 +7,8 @@ from threadpool import ThreadPool, makeRequests
 
 SERVER_URL = "ws://dev.ingress-performance-test-websocket.stg.svc.qt-k8s-hz.com/ws"
 
+total = 0
+
 
 def on_message(ws, message):
     print(message)
@@ -24,6 +26,7 @@ def on_close(ws):
 
 
 def on_open(ws):
+
     def send_thread():
         send_info = {"seq": "0_0", "cmd": "ping", "data": {}}
         while True:
@@ -33,11 +36,13 @@ def on_open(ws):
 
     t = threading.Thread(target=send_thread)
     t.start()
+    total += 1
+    print("一共启动连接: ", total)
 
 
 def on_start(t):
-    # time.sleep(2)
-    # websocket.enableTrace(True)
+    time.sleep(0.05)
+    websocket.enableTrace(True)
     ws = websocket.WebSocketApp(SERVER_URL,
                                 on_message=on_message,
                                 on_error=on_error,
@@ -47,9 +52,9 @@ def on_start(t):
 
 
 if __name__ == "__main__":
-    pool = ThreadPool(50000)
+    pool = ThreadPool(1000)
     test = list()
-    for ir in range(50000):
+    for ir in range(1000):
         test.append(ir)
     requests = makeRequests(on_start, test)
     [pool.putRequest(req) for req in requests]
