@@ -45,10 +45,10 @@ def on_start():
 
 
 if __name__ == "__main__":
-    pool = ThreadPool(50000)
+    pool = ThreadPool(5000)
     test = list()
-    for ir in range(50000):
+    for ir in range(5000):
         test.append(ir)
-    requests = makeRequests(on_start, test)
+    requests = makeRequests(on_start)
     [pool.putRequest(req) for req in requests]
     pool.wait()
