@@ -31,6 +31,9 @@ func WebSocket(chanID uint64, ch chan<- *model.RequestResults, totalNumber uint6
 	request *model.Request, ws *client.WebSocket) {
 	defer func() {
 		wg.Done()
+		if err := recover(); err != nil {
+			fmt.Println("发生 panic", err)
+		}
 	}()
 	defer func() {
 		fmt.Println("正在关闭 websocket")
@@ -60,6 +63,7 @@ end:
 
 	if keepAlive {
 		// 保持连接
+		fmt.Println("保持连接")
 		chWaitFor := make(chan int, 0)
 		<-chWaitFor
 	}
