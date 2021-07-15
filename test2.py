@@ -35,7 +35,7 @@ def on_open(ws):
 
 def on_start(t):
     # time.sleep(2)
-    websocket.enableTrace(True)
+    # websocket.enableTrace(True)
     ws = websocket.WebSocketApp(SERVER_URL,
                                 on_message=on_message,
                                 on_error=on_error,
