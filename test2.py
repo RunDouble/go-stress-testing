@@ -45,7 +45,6 @@ def on_start():
 
 
 if __name__ == "__main__":
-    init_logging()
     pool = ThreadPool(50000)
     test = list()
     for ir in range(50000):
